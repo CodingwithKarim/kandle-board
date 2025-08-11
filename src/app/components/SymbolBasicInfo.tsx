@@ -1,9 +1,9 @@
-import { CompanyInfo } from "../types"
+import { CompanyInfoTypes } from "../types"
 import Card from "./Card"
 
 const fmtNum = (n?: number) => n == null ? "—" : new Intl.NumberFormat().format(n);
 
-export function CompanyInfo({ info }: { info: CompanyInfo }) {
+export function CompanyInfo({ info }: { info: CompanyInfoTypes }) {
   return (
     <Card header={
       <div className="flex items-center justify-between text-xs uppercase tracking-wide text-white/50">

@@ -15,7 +15,7 @@ export type Item = {
   mini?: number[];
 };
 
-export type CompanyInfo = {
+export type CompanyInfoTypes = {
     symbol: string;
     longName?: string;
     shortName?: string;

@@ -6,7 +6,7 @@ import CandlesChart from "./components/SymbolChart/SymbolChart";
 import Card from "./components/Card";
 import { useState } from "react";
 import { Notes } from "./components/SymbolSummary";
-import { Candle, CompanyInfo, Interval, LookupData, Stats } from "./types";
+import { Candle, CompanyInfoTypes, Interval, LookupData, Stats } from "./types";
 import { CompanyInfo as CompanyAboutMe } from "./components/SymbolBasicInfo";
 import SymbolMetrics from "./components/SymbolMetrics";
 
@@ -31,7 +31,7 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [candles, setCandles] = useState<Candle[]>([]);
   const [stats, setStats] = useState<Stats>(null);
-  const [info, setInfo] = useState<CompanyInfo>(null);
+  const [info, setInfo] = useState<CompanyInfoTypes>(null);
   const [interval, setInterval] = useState<Interval>("1d");
 
   const getDataForSymbol = async (lookupData: LookupData) => {
@@ -60,7 +60,7 @@ export default function Page() {
       const data: {
         stats: Stats;
         candles: Candle[] | OhlcvRecord;
-        profile: CompanyInfo;
+        profile: CompanyInfoTypes;
       } = await response.json();
 
       setStats(data.stats ?? null);
