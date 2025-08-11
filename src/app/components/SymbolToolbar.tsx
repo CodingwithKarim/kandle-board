@@ -8,11 +8,11 @@ const fmtLocalDate = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1)
 
 export default function Toolbar({ onSearch, onReset }: ToolbarProps) {
   const DEFAULTS = {
-  symbol: "",
-  end: fmtLocalDate(new Date()),
-  preset: "1Y" as RangeOption,
-  interval: "1d" as Interval,
-} as const;
+    symbol: "",
+    end: fmtLocalDate(new Date()),
+    preset: "1Y" as RangeOption,
+    interval: "1d" as Interval,
+  } as const;
 
   const [symbol, setSymbol] = useState<string>(DEFAULTS.symbol);
   const [end, setEnd] = useState<string>(DEFAULTS.end);
@@ -44,31 +44,31 @@ export default function Toolbar({ onSearch, onReset }: ToolbarProps) {
     onReset?.();
   }
 
-function onPickInterval(i: Interval) {
-  setInterval(i);
-  if (!ALLOWED[rangeOption].includes(i)) {
-    setRange(FIRST_RANGE_FOR_INTERVAL[i]);
+  function onPickInterval(i: Interval) {
+    setInterval(i);
+    if (!ALLOWED[rangeOption].includes(i)) {
+      setRange(FIRST_RANGE_FOR_INTERVAL[i]);
+    }
   }
-}
 
-function onPickRange(r: RangeOption) {
-  if (ALLOWED[r].includes(interval as Interval)) {
-    setRange(r);
-  } else {
-    setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
+  function onPickRange(r: RangeOption) {
+    if (ALLOWED[r].includes(interval as Interval)) {
+      setRange(r);
+    } else {
+      setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
+    }
   }
-}
 
-useEffect(() => {
-  if (!ALLOWED[rangeOption].includes(interval as Interval)) {
-    setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
-  }
-}, []);
+  useEffect(() => {
+    if (!ALLOWED[rangeOption].includes(interval as Interval)) {
+      setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
+    }
+  }, []);
 
   const intervals = ["1h", "1d", "1mo", "3mo"];
 
   return (
-    <div className="sticky top-0 z-20 -mx-2 px-2 py-3 bg-gradient-to-b from-[#0f172acc] to-transparent backdrop-blur-sm">
+    <div className="-mx-2 px-2 py-3 bg-gradient-to-b from-[#0f172acc] to-transparent backdrop-blur-sm">
       <Card className="border-white/10 bg-white/[0.03] shadow-lg shadow-black/10 ring-1 ring-inset ring-white/10">
         <form onSubmit={handleSubmit} className="grid gap-3 md:grid-cols-11">
           <div className="md:col-span-3">
@@ -82,7 +82,7 @@ useEffect(() => {
               <input
                 value={symbol}
                 onChange={(e) => setSymbol(e.target.value.toUpperCase())}
-                placeholder="e.g., MSFT, SPY, BTC-USD"
+                placeholder="e.g., AAPL, MSFT, AMZN, BTC-USD"
                 className="h-10 w-full rounded-2xl border border-white/10 bg-white/5 pl-9 pr-3 text-white outline-none transition focus:border-white/30 focus:ring-2 focus:ring-emerald-400/40"
               />
             </div>
@@ -100,7 +100,7 @@ useEffect(() => {
                 type="date"
                 value={end}
                 onChange={(e) => setEnd(e.target.value)}
-                className="h-10 w-full rounded-2xl border border-white/10 bg-white/5 pl-9 pr-3 text-white outline-none transition focus:border-white/30 focus:ring-2 focus:ring-emerald-400/40"
+                className="h-10 w-full rounded-2xl border border-white/10 bg-white/5 pl-12 pr-3 text-white outline-none transition focus:border-white/30 focus:ring-2 focus:ring-emerald-400/40 [line-height:normal] sm:pl-9"
               />
             </div>
           </div>
@@ -161,10 +161,10 @@ useEffect(() => {
                     onClick={() => !disabled && onPickRange(p)}
                     disabled={disabled}
                     className={`h-10 rounded-2xl px-3 text-sm transition ${disabled
-                        ? "cursor-not-allowed border border-white/10 bg-white/5 text-white/40"
-                        : active
-                          ? "bg-white text-black shadow"
-                          : "border border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
+                      ? "cursor-not-allowed border border-white/10 bg-white/5 text-white/40"
+                      : active
+                        ? "bg-white text-black shadow"
+                        : "border border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
                       }`}
                     title={disabled ? `Not available for ${interval} interval` : undefined}
                   >
