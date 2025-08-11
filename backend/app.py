@@ -14,10 +14,14 @@ from helpers import (
     get_volatility,
 )
 
+ALLOWED_ORIGINS = [
+    "https://kandle-board.vercel.app",
+]
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
