@@ -55,13 +55,13 @@ function onPickRange(r: RangeOption) {
   if (ALLOWED[r].includes(interval as Interval)) {
     setRange(r);
   } else {
-    setRange(FIRST_RANGE_FOR_INTERVAL[interval]);
+    setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
   }
 }
 
 useEffect(() => {
   if (!ALLOWED[rangeOption].includes(interval as Interval)) {
-    setRange(FIRST_RANGE_FOR_INTERVAL[interval]);
+    setRange(FIRST_RANGE_FOR_INTERVAL[interval as Interval]);
   }
 }, []);
 
