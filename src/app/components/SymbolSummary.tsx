@@ -27,7 +27,7 @@ function Summary({ text }: { text: string }) {
     );
 }
 
-export function Notes({ summary }) {
+export function Notes({ summary }: {summary: string}) {
     return (
         <Card header={<div className="text-sm text-white/70">Notes</div>}>
             {summary ? (

@@ -161,7 +161,7 @@ export default function Page() {
         )}
       </section>
 
-      <Notes summary={info?.summary} />
+      <Notes summary={info?.summary ?? ""} />
     </main>
   );
 }
