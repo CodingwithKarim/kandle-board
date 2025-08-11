@@ -16,7 +16,7 @@ export type Item = {
 };
 
 export type CompanyInfo = {
-    symbol: any;
+    symbol: string;
     longName?: string;
     shortName?: string;
     website?: string;

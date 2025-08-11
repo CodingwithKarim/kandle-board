@@ -1,5 +1,7 @@
 import { Interval } from "../../types";
 
+type TimeLike = string | number | Date;
+
 export function yTicksOnEdge(minP: number, maxP: number, count = 5) {
     const step = niceStep(maxP - minP, count);
     const first = Math.ceil(minP / step) * step;
@@ -31,24 +33,32 @@ export function evenIdxTicks(n: number, maxTicks: number) {
     return out;
 }
 
-export function monthTicksIdx(data: { Time?: any }[]) {
+export function monthTicksIdx(data: { Time?: TimeLike }[]) {
     const out: number[] = [];
     let lastM = -1, lastY = -1;
     for (let i = 0; i < data.length; i++) {
         const d = new Date(toMs(data[i].Time));
         const m = d.getMonth(), y = d.getFullYear();
-        if (m !== lastM || y !== lastY) { out.push(i); lastM = m; lastY = y; }
+        if (m !== lastM || y !== lastY) {
+            out.push(i);
+            lastM = m;
+            lastY = y;
+        }
     }
     return out;
 }
 
-export function quarterTicksIdx(data: { Time?: any }[]) {
+export function quarterTicksIdx(data: { Time?: TimeLike }[]) {
     const out: number[] = [];
     let lastQ = -1, lastY = -1;
     for (let i = 0; i < data.length; i++) {
         const d = new Date(toMs(data[i].Time));
         const q = Math.floor(d.getMonth() / 3), y = d.getFullYear();
-        if (q !== lastQ || y !== lastY) { out.push(i); lastQ = q; lastY = y; }
+        if (q !== lastQ || y !== lastY) {
+            out.push(i);
+            lastQ = q;
+            lastY = y;
+        }
     }
     return out;
 }
@@ -68,7 +78,7 @@ export const maxTicksForWidth = (innerWidth: number, minLabelPx = 80) =>
     Math.max(2, Math.floor(innerWidth / minLabelPx));
 
 export function xTicksByInterval(
-    data: { Time?: any }[],
+    data: { Time?: TimeLike }[],
     interval: Interval,
     innerWidth: number,
     minLabelPx = 80
