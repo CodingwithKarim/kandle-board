@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align="center">KandleBoard</h1>
+<p align="center">A market dashboard for historical price insights.</p>
 
-## Getting Started
+<img width="1301" height="928" alt="KandleBoard Screenshot" src="https://github.com/user-attachments/assets/61d787b8-e834-4919-a3ee-d85f1b77adeb" />
 
-First, run the development server:
+## What it does
+KandleBoard lets you type a ticker (e.g., AAPL, SPY, BTC-USD), pick an interval and range, and instantly see:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Candlestick chart** with hover (O/H/L/C/Volume), clean grid and labels.
+- **Core metrics** for the selected window:
+  - **Price (end)** — closing price of the last candle in the selected interval + range
+  - **Return (selected range)** — % change from the first close to the last close in the selected interval + range
+  - **High / Low (selected range)** — highest and lowest prices reached in the selected interval + range
+  - **Avg Volume** — average number of shares traded over the selected interval + range
+  - **Annualized Volatility** — how much the price moves around, scaled to a yearly rate (log-return std dev)
+- **Company snapshot** — name, sector, website, and a short summary when available
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The UI enforces sensible interval ↔ range combos (interval decides the allowed ranges) so you don’t request data providers can’t serve (e.g., `1h` with `MAX`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+- Some requests (especially small intervals that return many candles) can take a while to load. We’re on a free Render tier, so compute and especially cold starts can add a lot of latency.
+- We don’t have real-time data via yfinance. True RT access requires paid subscriptions with exchanges or data vendors.
+- Data from yfinance is generally delayed until closing of the financial day.
