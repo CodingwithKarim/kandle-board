@@ -10,13 +10,16 @@ import { Candle, CompanyInfo, Interval, LookupData, Stats } from "./types";
 import { CompanyInfo as CompanyAboutMe } from "./components/SymbolBasicInfo";
 import SymbolMetrics from './components/SymbolMetrics';
 
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL!;
+
+
 const fmtCompact = (n: number) => Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 2 }).format(n);
 
-const volumeLabel = (interval: "1h"|"1d"|"1mo"|"3mo") => {
+const volumeLabel = (interval: "1h" | "1d" | "1mo" | "3mo") => {
   return interval === "1h" ? "Avg Hourly Volume"
-       : interval === "1d" ? "Avg Daily Volume"
-       : interval === "1mo" ? "Avg Monthly Volume"
-       :                       "Avg Quarterly Volume";
+    : interval === "1d" ? "Avg Daily Volume"
+      : interval === "1mo" ? "Avg Monthly Volume"
+        : "Avg Quarterly Volume";
 }
 
 export default function Page() {
@@ -30,9 +33,16 @@ export default function Page() {
     setLoading(true);
 
     try {
-      const url = `http://localhost:5000/api/symbol/${lookupData.symbol}?asOf=${lookupData.end}&range_=${lookupData.range}&interval=${lookupData.interval}`;
+      const asOf = lookupData.end
+        ? new Date(lookupData.end).toISOString()
+        : '';
 
-      const response = await fetch(url);
+      const url =
+        `${API_BASE}/api/symbol/${encodeURIComponent(lookupData.symbol)}` +
+        `?${asOf ? `asOf=${encodeURIComponent(asOf)}&` : ""}` +
+        `range_=${lookupData.range}&interval=${lookupData.interval}`;
+
+      const response = await fetch(url, { cache: "no-store" });
 
       if (!response.ok) {
         Swal.fire({
