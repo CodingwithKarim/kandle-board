@@ -10,7 +10,7 @@ export default function Toolbar({ onSearch, onReset }: ToolbarProps) {
   const DEFAULTS = {
     symbol: "",
     end: fmtLocalDate(new Date()),
-    preset: "1Y" as RangeOption,
+    preset: "1W" as RangeOption,
     interval: "1d" as Interval,
   } as const;
 
@@ -90,8 +90,9 @@ export default function Toolbar({ onSearch, onReset }: ToolbarProps) {
 
           <div className="md:col-span-3">
             <label className="mb-1 block text-[11px] tracking-wide text-white/60">AS OF</label>
-            <div className="relative">
-              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 opacity-60">
+
+            <div className="flex h-10 w-full items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 text-white outline-none ring-0 transition focus-within:border-white/30 focus-within:ring-2 focus-within:ring-emerald-400/40">
+              <span className="opacity-60 shrink-0">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M7 3v3M17 3v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
@@ -100,7 +101,14 @@ export default function Toolbar({ onSearch, onReset }: ToolbarProps) {
                 type="date"
                 value={end}
                 onChange={(e) => setEnd(e.target.value)}
-                className="h-10 w-full rounded-2xl border border-white/10 bg-white/5 pl-12 pr-3 text-white outline-none transition focus:border-white/30 focus:ring-2 focus:ring-emerald-400/40 [line-height:normal] sm:pl-9"
+                className="
+                  flex-1 bg-transparent text-white outline-none h-[2.25rem]
+                  [appearance:none] [-webkit-appearance:none] [line-height:normal]
+                  [&::-webkit-datetime-edit]:p-0
+                  [&::-webkit-date-and-time-value]:min-h-[1.5rem]
+                  [&::-webkit-calendar-picker-indicator]:opacity-70
+                  [&::-webkit-calendar-picker-indicator]:cursor-pointer
+                "
               />
             </div>
           </div>
